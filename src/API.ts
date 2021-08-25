@@ -21,7 +21,6 @@ const buildQuestionFromData = ({
   return {
     question: he.decode(question),
     answers: shuffleArray(answers),
-    usersChoice: null,
   };
 };
 
@@ -37,7 +36,6 @@ type QuestionData = {
 export type Question = {
   answers: Answer[];
   question: string;
-  usersChoice: Answer | null;
 };
 
 export type Answer = {
