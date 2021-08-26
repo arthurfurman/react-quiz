@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { Question } from "../API";
-import { AnswerButton } from "./QuestionCard.styles";
-import he from "he";
+import React, { FC } from 'react';
+import { Question } from '../API';
+import { AnswerButton } from './QuestionCard.styles';
+import he from 'he';
 
 type QuestionCardProps = {
 	question: Question;
@@ -24,8 +24,8 @@ const QuestionCard: FC<QuestionCardProps> = ({ question, userAnswer, userChoiceH
 					>
 						{answer.answer}
 					</AnswerButton>
-					{isReviewing && answer.correct ? <span>{he.decode("&#x2713")}</span> : null}
-          {isReviewing && userAnswer === answer.answer && !answer.correct ? <span>{he.decode("&#x2717")}</span> : null}
+					{isReviewing && answer.correct ? <span>{he.decode('&#x2713')}</span> : null}
+          {isReviewing && userAnswer === answer.answer && !answer.correct ? <span>{he.decode('&#x2717')}</span> : null}
 				</div>
 			))}
 		</div>

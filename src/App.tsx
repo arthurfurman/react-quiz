@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // components
 import QuestionCard from "./components/QuestionCard";
+import Start from "./components/Start";
 
 import { Question, getQuestions, Answer } from "./API";
 
@@ -12,10 +13,10 @@ const App = () => {
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [score, setScore] = useState(0);
 
-	const startTrivia = async () => {
+	const startTrivia = async (difficulty: string) => {
 		setIsLoading(true);
 		setIsReviewingAnswers(false);
-		setQuestions(await getQuestions());
+		setQuestions(await getQuestions(difficulty));
 		setCurrentQuestionIndex(0);
 		setScore(0);
 		setIsLoading(false);
@@ -61,28 +62,34 @@ const App = () => {
 
 			{isReviewingAnswers ? <h2>Score: {score}</h2> : null}
 
-			<button className='start' onClick={startTrivia}>
-				{questions.length !== 0 ? "Restart" : "Start"}
-			</button>
+			{questions.length === 0 ? (
+				<Start onStart={startTrivia} />
+			) : (
+				<button onClick={() => setQuestions([])}>Restart</button>
+			)}
 
 			{isLoading ? <p>Loading questions...</p> : null}
 
 			{questions.length !== 0 ? (
 				<div className='questions'>
-					<p>Question number: {currentQuestionIndex}</p>
+					<p>Question number: {currentQuestionIndex}/9</p>
 					<QuestionCard
 						question={questions[currentQuestionIndex]}
 						userAnswer={currentQuestionIndex in userAnswers ? userAnswers[currentQuestionIndex] : ""}
 						userChoiceHandler={setUserChioce}
-            isReviewing={isReviewingAnswers}
+						isReviewing={isReviewingAnswers}
 					/>
 					<div className='buttons'>
-						<button className='previous' onClick={prevQuestion}>
-							Previous
-						</button>
-						<button className='next' onClick={nextQuestion}>
-							Next
-						</button>
+						{currentQuestionIndex > 0 ? (
+							<button className='previous' onClick={prevQuestion}>
+								Previous
+							</button>
+						) : null}
+						{currentQuestionIndex < 9 ? (
+							<button className='next' onClick={nextQuestion}>
+								Next
+							</button>
+						) : null}
 						{isReviewingAnswers ? null : (
 							<button className='submit' onClick={submitAnswers}>
 								Submit

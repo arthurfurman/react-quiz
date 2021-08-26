@@ -1,4 +1,4 @@
-import he from "he";
+import he from 'he';
 
 const shuffleArray = (array: any[]): any[] =>
   array.sort(() => Math.random() - 0.5);
@@ -43,8 +43,8 @@ export type Answer = {
   correct: boolean;
 };
 
-export const getQuestions = async (): Promise<Question[]> => {
-  const data = await fetch("https://opentdb.com/api.php?amount=10").then(
+export const getQuestions = async (difficulty: string): Promise<Question[]> => {
+  const data = await fetch(`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}`).then(
     (response) => response.json()
   );
   return data.results.map((questionData: QuestionData) =>
