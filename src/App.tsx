@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { FC, useState, MouseEvent } from "react";
 // components
 import QuestionCard from "./components/QuestionCard";
 import Start from "./components/Start";
 
 import { Question, getQuestions, Answer } from "./API";
 
-const App = () => {
+const App: FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isReviewingAnswers, setIsReviewingAnswers] = useState(false);
 	const [questions, setQuestions] = useState<Question[]>([]);
@@ -47,7 +47,7 @@ const App = () => {
 		}
 	};
 
-	const setUserChioce = (e: any) => {
+	const setUserChioce = (e: MouseEvent<HTMLButtonElement>) => {
 		const answer: string = e.currentTarget.value;
 		const index: number = currentQuestionIndex;
 		setUserAnswers((prevState) => ({
@@ -62,16 +62,13 @@ const App = () => {
 
 			{isReviewingAnswers ? <h2>Score: {score}</h2> : null}
 
-			{questions.length === 0 ? (
+			{isLoading ? (
+				<p>Loading questions...</p>
+			) : questions.length === 0 ? (
 				<Start onStart={startTrivia} />
 			) : (
-				<button onClick={() => setQuestions([])}>Restart</button>
-			)}
-
-			{isLoading ? <p>Loading questions...</p> : null}
-
-			{questions.length !== 0 ? (
 				<div className='questions'>
+					<button onClick={() => setQuestions([])}>Restart</button>
 					<p>Question number: {currentQuestionIndex}/9</p>
 					<QuestionCard
 						question={questions[currentQuestionIndex]}
@@ -97,7 +94,7 @@ const App = () => {
 						)}
 					</div>
 				</div>
-			) : null}
+			)}
 		</div>
 	);
 };

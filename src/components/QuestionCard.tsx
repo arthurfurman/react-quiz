@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { Question } from '../API';
 import { AnswerButton } from './QuestionCard.styles';
 import he from 'he';
@@ -6,7 +6,7 @@ import he from 'he';
 type QuestionCardProps = {
 	question: Question;
 	userAnswer: string;
-	userChoiceHandler(e: any): void;
+	userChoiceHandler(e: MouseEvent<HTMLButtonElement>): void;
 	isReviewing: boolean;
 };
 

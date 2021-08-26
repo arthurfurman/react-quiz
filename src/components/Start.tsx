@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+import { FC, useState, MouseEvent } from 'react';
+import { AnswerButton } from './QuestionCard.styles';
 
 type StartProps = {
 	onStart(difficulty: string): void;
@@ -7,22 +8,22 @@ type StartProps = {
 const Start: FC<StartProps> = ({ onStart }): JSX.Element => {
 	const [difficulty, setDifficulty] = useState("");
 
-  const choseDifficulty = (e: any) => {
+  const choseDifficulty = (e: MouseEvent<HTMLButtonElement>) => {
     setDifficulty(e.currentTarget.value);
   }
 
 	return (
 		<div>
       <p>Choose difficulty</p>
-			<button onClick={choseDifficulty} value='easy'>
+			<AnswerButton isUserChoice={difficulty==='easy'} onClick={choseDifficulty} value='easy'>
 				Easy
-			</button>
-			<button onClick={choseDifficulty} value='medium'>
+			</AnswerButton>
+			<AnswerButton isUserChoice={difficulty==='medium'} onClick={choseDifficulty} value='medium'>
 				Medium
-			</button>
-			<button onClick={choseDifficulty} value='hard'>
+			</AnswerButton>
+			<AnswerButton isUserChoice={difficulty==='hard'} onClick={choseDifficulty} value='hard'>
 				Hard
-			</button>
+			</AnswerButton>
 			<button disabled={difficulty === ""} onClick={() => onStart(difficulty)}>
 				Start
 			</button>
