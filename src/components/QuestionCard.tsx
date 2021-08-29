@@ -1,7 +1,7 @@
-import { FC, MouseEvent } from 'react';
-import { Question } from '../API';
-import { AnswerButton } from './QuestionCard.styles';
-import he from 'he';
+import { FC, MouseEvent } from "react";
+import { Question } from "../API";
+import { AnswerButton } from "./QuestionCard.styles";
+import he from "he";
 
 type QuestionCardProps = {
 	question: Question;
@@ -10,8 +10,7 @@ type QuestionCardProps = {
 	isReviewing: boolean;
 };
 
-const QuestionCard: FC<QuestionCardProps> = ({ question, userAnswer, userChoiceHandler, isReviewing }): JSX.Element => {
-	return (
+const QuestionCard: FC<QuestionCardProps> = ({ question, userAnswer, userChoiceHandler, isReviewing }): JSX.Element => (
 		<div>
 			<p>{question.question}</p>
 			{question.answers.map((answer, index) => (
@@ -24,12 +23,11 @@ const QuestionCard: FC<QuestionCardProps> = ({ question, userAnswer, userChoiceH
 					>
 						{answer.answer}
 					</AnswerButton>
-					{isReviewing && answer.correct ? <span>{he.decode('&#x2713')}</span> : null}
-          {isReviewing && userAnswer === answer.answer && !answer.correct ? <span>{he.decode('&#x2717')}</span> : null}
+					{isReviewing && answer.correct ? <span>{he.decode("&#x2713")}</span> : null}
+					{isReviewing && userAnswer === answer.answer && !answer.correct ? <span>{he.decode("&#x2717")}</span> : null}
 				</div>
 			))}
 		</div>
 	);
-};
 
 export default QuestionCard;
